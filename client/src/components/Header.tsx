@@ -6,6 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [location] = useLocation();
+<<<<<<< HEAD
   const [user, setUser] = useState<User | null>(null);
   const { toast } = useToast();
   const [, navigate] = useLocation();
@@ -17,6 +18,9 @@ export default function Header() {
       setUser(userData);
     }
   }, [location]);
+=======
+  const [showLoginModal, setShowLoginModal] = useState(false);
+>>>>>>> 06d18af (Add user authentication with login and registration functionality.  Includes frontend and backend implementation, using JWT for authentication.)
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -76,6 +80,7 @@ export default function Header() {
         </nav>
         
         <div className="flex items-center space-x-2">
+<<<<<<< HEAD
           {user ? (
             <div className="flex items-center">
               <Link href="/profile">
@@ -115,6 +120,43 @@ export default function Header() {
             </Link>
           )}
           
+=======
+          <div className="text-primary">
+            <i className="fas fa-utensils text-2xl"></i>
+          </div>
+          <span className="text-xl font-heading font-semibold cursor-pointer" onClick={() => window.location.href = "/"}>
+            Recipe Finder
+          </span>
+        </div>
+        <div className="hidden md:flex items-center space-x-6">
+          <Link href="/">
+            <span className={`${location === "/" ? "text-primary" : "text-neutral-700"} hover:text-primary transition font-medium cursor-pointer`}>
+              Home
+            </span>
+          </Link>
+          <Link href="/browse">
+            <span className={`${location === "/browse" ? "text-primary" : "text-neutral-700"} hover:text-primary transition font-medium cursor-pointer`}>
+              Browse
+            </span>
+          </Link>
+          <Link href="/meal-planner">
+            <span className={`${location === "/meal-planner" ? "text-primary" : "text-neutral-700"} hover:text-primary transition font-medium cursor-pointer`}>
+              Meal Planner
+            </span>
+          </Link>
+          <Link href="/favorites">
+            <span className={`${location === "/favorites" ? "text-primary" : "text-neutral-700"} hover:text-primary transition font-medium flex items-center cursor-pointer`}>
+              <i className="far fa-heart mr-1"></i> Favorites
+            </span>
+          </Link>
+          <Link href="/login">
+            <span className={`${location === "/login" ? "text-primary" : "text-neutral-700"} hover:text-primary transition font-medium flex items-center cursor-pointer`}>
+              <i className="fas fa-sign-in-alt mr-1"></i> Login
+            </span>
+          </Link>
+        </div>
+        <div className="flex items-center space-x-3">
+>>>>>>> 06d18af (Add user authentication with login and registration functionality.  Includes frontend and backend implementation, using JWT for authentication.)
           <button 
             className="md:hidden text-gray-700 hover:text-primary transition p-2 rounded-lg hover:bg-gray-100" 
             onClick={toggleMobileMenu}
@@ -122,6 +164,7 @@ export default function Header() {
           >
             <i className={`${mobileMenuOpen ? 'fas fa-times' : 'fas fa-bars'} text-xl`}></i>
           </button>
+<<<<<<< HEAD
         </div>
       </div>
       
@@ -178,6 +221,44 @@ export default function Header() {
               </div>
             </Link>
           )}
+=======
+          <Link href="/login">
+            <button className="rounded-full bg-gradient-to-r from-primary to-orange-400 h-8 w-8 flex items-center justify-center text-white shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105">
+              <i className="fas fa-user"></i>
+            </button>
+          </Link>
+        </div>
+      </div>
+      
+      {/* Mobile Menu */}
+      <div className={`md:hidden ${mobileMenuOpen ? "block" : "hidden"}`}>
+        <div className="px-2 pt-2 pb-3 space-y-1 border-t">
+          <div className="block px-3 py-2 text-base font-medium text-neutral-700 hover:bg-neutral-200 rounded-md transition-colors duration-200">
+            <Link href="/">
+              <span className="cursor-pointer block">Home</span>
+            </Link>
+          </div>
+          <div className="block px-3 py-2 text-base font-medium text-neutral-700 hover:bg-neutral-200 rounded-md transition-colors duration-200">
+            <Link href="/browse">
+              <span className="cursor-pointer block">Browse</span>
+            </Link>
+          </div>
+          <div className="block px-3 py-2 text-base font-medium text-neutral-700 hover:bg-neutral-200 rounded-md transition-colors duration-200">
+            <Link href="/meal-planner">
+              <span className="cursor-pointer block">Meal Planner</span>
+            </Link>
+          </div>
+          <div className="block px-3 py-2 text-base font-medium text-neutral-700 hover:bg-neutral-200 rounded-md transition-colors duration-200">
+            <Link href="/favorites">
+              <span className="cursor-pointer block">Favorites</span>
+            </Link>
+          </div>
+          <div className="block px-3 py-2 text-base font-medium text-neutral-700 hover:bg-neutral-200 rounded-md transition-colors duration-200">
+            <Link href="/login">
+              <span className="cursor-pointer block">Login</span>
+            </Link>
+          </div>
+>>>>>>> 06d18af (Add user authentication with login and registration functionality.  Includes frontend and backend implementation, using JWT for authentication.)
         </div>
       </div>
     </header>
