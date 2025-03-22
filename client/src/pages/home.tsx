@@ -154,6 +154,9 @@ export default function Home() {
       {/* Personalized Recommendations Section */}
       {isUserAuthenticated && (
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 54d573e (Enhance recipe card UI with animations, hover effects, and responsive design; improve overall aesthetics and user experience.)
         <div className="mb-12 animate-slide-in">
           <div className="flex items-center gap-3 mb-6">
             <div className="relative">
@@ -164,6 +167,7 @@ export default function Home() {
               </h2>
               <div className="h-1 w-1/2 bg-gradient-to-r from-primary to-orange-400 rounded mt-1"></div>
             </div>
+<<<<<<< HEAD
           </div>
           
           <h3 className="text-xl font-medium mb-4 text-gray-800">Recommended for you</h3>
@@ -180,15 +184,23 @@ export default function Home() {
             <h2 className="text-2xl font-bold text-primary">
               Hello {userName}! Recommended for you
             </h2>
+=======
+>>>>>>> 54d573e (Enhance recipe card UI with animations, hover effects, and responsive design; improve overall aesthetics and user experience.)
           </div>
           
+          <h3 className="text-xl font-medium mb-4 text-gray-800">Recommended for you</h3>
+          
           {isLoadingRecommendations && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {[...Array(3)].map((_, i) => (
                 <div 
                   key={`skeleton-${i}`} 
+<<<<<<< HEAD
                   className="bg-gray-100 rounded-lg p-4 h-64 animate-pulse"
 >>>>>>> aee125c (Add user authentication and personalized recipe recommendations.)
+=======
+                  className="bg-white rounded-xl p-4 h-64 skeleton-pulse shadow-sm"
+>>>>>>> 54d573e (Enhance recipe card UI with animations, hover effects, and responsive design; improve overall aesthetics and user experience.)
                 />
               ))}
             </div>
@@ -196,14 +208,19 @@ export default function Home() {
           
           {!isLoadingRecommendations && recommendedRecipes?.results && (
 <<<<<<< HEAD
+<<<<<<< HEAD
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pb-2 stagger-animation">
 =======
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 overflow-x-auto pb-2">
 >>>>>>> aee125c (Add user authentication and personalized recipe recommendations.)
+=======
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pb-2 stagger-animation">
+>>>>>>> 54d573e (Enhance recipe card UI with animations, hover effects, and responsive design; improve overall aesthetics and user experience.)
               {recommendedRecipes.results.slice(0, 3).map((recipe) => (
                 <div 
                   key={recipe.id}
                   onClick={() => handleRecipeClick(recipe.id)}
+<<<<<<< HEAD
 <<<<<<< HEAD
                   className="recipe-card cursor-pointer"
                 >
@@ -226,22 +243,34 @@ export default function Home() {
                     </div>
 =======
                   className="cursor-pointer transition-transform hover:scale-105"
+=======
+                  className="recipe-card cursor-pointer"
+>>>>>>> 54d573e (Enhance recipe card UI with animations, hover effects, and responsive design; improve overall aesthetics and user experience.)
                 >
-                  <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                    <div className="relative h-40">
-                      <img 
-                        src={recipe.image} 
-                        alt={recipe.title}
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute bottom-0 right-0 bg-orange-100 text-primary font-medium text-sm px-2 py-1 rounded-tl-lg">
-                        {recipe.readyInMinutes} min
+                  <div className="relative overflow-hidden group">
+                    <img 
+                      src={recipe.image} 
+                      alt={recipe.title}
+                      className="w-full h-52 object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80"></div>
+                    <div className="absolute bottom-0 left-0 right-0 p-4">
+                      <h3 className="font-medium text-white text-lg line-clamp-2 drop-shadow-md">
+                        {recipe.title}
+                      </h3>
+                      <div className="flex items-center mt-2">
+                        <span className="text-white text-sm bg-primary/80 px-2.5 py-1 rounded-full inline-flex items-center">
+                          <i className="far fa-clock mr-1.5"></i> {recipe.readyInMinutes} min
+                        </span>
                       </div>
                     </div>
+<<<<<<< HEAD
                     <div className="p-4">
                       <h3 className="font-semibold text-lg line-clamp-2">{recipe.title}</h3>
                     </div>
 >>>>>>> aee125c (Add user authentication and personalized recipe recommendations.)
+=======
+>>>>>>> 54d573e (Enhance recipe card UI with animations, hover effects, and responsive design; improve overall aesthetics and user experience.)
                   </div>
                 </div>
               ))}
@@ -251,6 +280,9 @@ export default function Home() {
       )}
       
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 54d573e (Enhance recipe card UI with animations, hover effects, and responsive design; improve overall aesthetics and user experience.)
       <div className="flex flex-col lg:flex-row gap-8 animate-fade-in" style={{animationDelay: "0.2s"}}>
         <aside className="lg:w-1/4">
           <FilterPanel 
@@ -261,6 +293,7 @@ export default function Home() {
             onFilterChange={handleFilterChange}
           />
         </aside>
+<<<<<<< HEAD
 =======
       <div className="flex flex-col md:flex-row gap-6">
         <FilterPanel 
@@ -271,6 +304,8 @@ export default function Home() {
           onFilterChange={handleFilterChange}
         />
 >>>>>>> aee125c (Add user authentication and personalized recipe recommendations.)
+=======
+>>>>>>> 54d573e (Enhance recipe card UI with animations, hover effects, and responsive design; improve overall aesthetics and user experience.)
         
         <div className="lg:w-3/4">
           <RecipeResults 

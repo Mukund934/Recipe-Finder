@@ -131,7 +131,11 @@ export default function RecipeCard({ recipe, onClick, isFavorite = false }: Reci
           </div>
         </div>
         <div className="flex flex-wrap gap-1.5">
+<<<<<<< HEAD
           {diets.slice(0, 3).map((diet: string, index: number) => (
+=======
+          {diets.slice(0, 3).map((diet, index) => (
+>>>>>>> 54d573e (Enhance recipe card UI with animations, hover effects, and responsive design; improve overall aesthetics and user experience.)
             <span 
               key={index} 
               className="badge-primary text-xs"
