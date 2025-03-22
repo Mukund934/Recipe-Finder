@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+<<<<<<< HEAD
 import { log } from '../vite';
 
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://admin1:SDZ3E9dKfzt5vYEc@cluster0.rxi0w.mongodb.net/Recipe-Finder';
@@ -72,3 +73,19 @@ process.on('SIGTERM', async () => {
 });
 
 export { mongoose };
+=======
+
+const MONGODB_URI = "mongodb+srv://admin1:SDZ3E9dKfzt5vYEc@cluster0.rxi0w.mongodb.net/Recipe-Finder";
+
+const connectToMongoDB = async () => {
+  try {
+    await mongoose.connect(MONGODB_URI);
+    console.log('Connected to MongoDB');
+  } catch (error) {
+    console.error('MongoDB connection error:', error);
+    process.exit(1);
+  }
+};
+
+export default connectToMongoDB;
+>>>>>>> f5a0667 (Implement user authentication with MongoDB and update API key; add numerous packages including bcrypt, jsonwebtoken, and mongoose.)

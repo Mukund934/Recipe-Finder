@@ -1,7 +1,12 @@
 import axios from "axios";
 
+<<<<<<< HEAD
 // Load Spoonacular API key from Vite's environment variables
 const API_KEY = import.meta.env.VITE_SPOONACULAR_API_KEY || "220280c3f65e4ac3b7c96bd8b98e0026";
+=======
+// Use the provided API key
+const API_KEY = "220280c3f65e4ac3b7c96bd8b98e0026";
+>>>>>>> f5a0667 (Implement user authentication with MongoDB and update API key; add numerous packages including bcrypt, jsonwebtoken, and mongoose.)
 const BASE_URL = "https://api.spoonacular.com";
 
 // Axios instance for Spoonacular API
