@@ -153,6 +153,7 @@ export default function Home() {
       
       {/* Personalized Recommendations Section */}
       {isUserAuthenticated && (
+<<<<<<< HEAD
         <div className="mb-12 animate-slide-in">
           <div className="flex items-center gap-3 mb-6">
             <div className="relative">
@@ -173,17 +174,37 @@ export default function Home() {
                 <div 
                   key={`skeleton-${i}`} 
                   className="bg-white rounded-xl p-4 h-64 skeleton-pulse shadow-sm"
+=======
+        <div className="mb-8">
+          <div className="flex items-center gap-2 mb-4">
+            <h2 className="text-2xl font-bold text-primary">
+              Hello {userName}! Recommended for you
+            </h2>
+          </div>
+          
+          {isLoadingRecommendations && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              {[...Array(3)].map((_, i) => (
+                <div 
+                  key={`skeleton-${i}`} 
+                  className="bg-gray-100 rounded-lg p-4 h-64 animate-pulse"
+>>>>>>> aee125c (Add user authentication and personalized recipe recommendations.)
                 />
               ))}
             </div>
           )}
           
           {!isLoadingRecommendations && recommendedRecipes?.results && (
+<<<<<<< HEAD
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pb-2 stagger-animation">
+=======
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 overflow-x-auto pb-2">
+>>>>>>> aee125c (Add user authentication and personalized recipe recommendations.)
               {recommendedRecipes.results.slice(0, 3).map((recipe) => (
                 <div 
                   key={recipe.id}
                   onClick={() => handleRecipeClick(recipe.id)}
+<<<<<<< HEAD
                   className="recipe-card cursor-pointer"
                 >
                   <div className="relative overflow-hidden group">
@@ -203,6 +224,24 @@ export default function Home() {
                         </span>
                       </div>
                     </div>
+=======
+                  className="cursor-pointer transition-transform hover:scale-105"
+                >
+                  <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div className="relative h-40">
+                      <img 
+                        src={recipe.image} 
+                        alt={recipe.title}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute bottom-0 right-0 bg-orange-100 text-primary font-medium text-sm px-2 py-1 rounded-tl-lg">
+                        {recipe.readyInMinutes} min
+                      </div>
+                    </div>
+                    <div className="p-4">
+                      <h3 className="font-semibold text-lg line-clamp-2">{recipe.title}</h3>
+                    </div>
+>>>>>>> aee125c (Add user authentication and personalized recipe recommendations.)
                   </div>
                 </div>
               ))}
@@ -211,6 +250,7 @@ export default function Home() {
         </div>
       )}
       
+<<<<<<< HEAD
       <div className="flex flex-col lg:flex-row gap-8 animate-fade-in" style={{animationDelay: "0.2s"}}>
         <aside className="lg:w-1/4">
           <FilterPanel 
@@ -221,6 +261,16 @@ export default function Home() {
             onFilterChange={handleFilterChange}
           />
         </aside>
+=======
+      <div className="flex flex-col md:flex-row gap-6">
+        <FilterPanel 
+          activeDiets={dietFilters}
+          activeCuisine={cuisineFilter}
+          activeTime={maxCookingTime}
+          activeIngredients={ingredientFilters}
+          onFilterChange={handleFilterChange}
+        />
+>>>>>>> aee125c (Add user authentication and personalized recipe recommendations.)
         
         <div className="lg:w-3/4">
           <RecipeResults 
