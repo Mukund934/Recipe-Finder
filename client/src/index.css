@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to bottom, #fefefe, #f9f9f9);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-medium tracking-tight;
+  }
+}
+
+@layer components {
+  /* Card hover effects */
+  .recipe-card {
+    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1 rounded-xl overflow-hidden;
+  }
+
+  /* Beautiful gradient buttons */
+  .gradient-button {
+    @apply bg-gradient-to-r from-primary to-orange-400 hover:from-primary/90 hover:to-orange-500 
+           text-white py-2 px-6 rounded-lg font-medium shadow-md hover:shadow-lg 
+           transition-all duration-300 transform hover:-translate-y-0.5;
+  }
+
+  /* Modern input styles */
+  .modern-input {
+    @apply border-0 shadow-sm bg-white focus:ring-2 focus:ring-primary/30 rounded-lg;
+  }
+
+  /* Badge styles */
+  .badge-primary {
+    @apply px-3 py-1 bg-orange-50 hover:bg-orange-100 text-orange-800 border border-orange-200 
+           rounded-full inline-flex items-center transition-colors;
+  }
+
+  /* Skeleton loading animation */
+  .skeleton-pulse {
+    @apply animate-pulse bg-gray-200 rounded-md;
+  }
+}
+
+/* Animation keyframes */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Animation utility classes */
+.animate-fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.4s ease-out forwards;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.3s ease-out forwards;
+}
+
+/* Staggered animations for lists */
+.stagger-animation > * {
+  animation: fadeIn 0.5s ease forwards;
+  opacity: 0;
+}
+
+.stagger-animation > *:nth-child(1) { animation-delay: 0.1s; }
+.stagger-animation > *:nth-child(2) { animation-delay: 0.2s; }
+.stagger-animation > *:nth-child(3) { animation-delay: 0.3s; }
+.stagger-animation > *:nth-child(4) { animation-delay: 0.4s; }
+.stagger-animation > *:nth-child(5) { animation-delay: 0.5s; }
+.stagger-animation > *:nth-child(6) { animation-delay: 0.6s; }
+
+/* Responsive utilities */
+.container-fluid {
+  @apply w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ffa07a;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff8c5a;
+}
