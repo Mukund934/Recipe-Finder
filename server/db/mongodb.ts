@@ -4,17 +4,13 @@ import { log } from '../vite';
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://admin1:SDZ3E9dKfzt5vYEc@cluster0.rxi0w.mongodb.net/Recipe-Finder';
 
 /**
- * Global is used here to maintain a cached connection across hot reloads
- * in development. This prevents connections growing exponentially
- * during API Route usage.
+ * Global cache for mongoose connection to prevent multiple connections during hot reloads.
  */
-// Define the structure of our cached mongoose connection
 interface MongooseCache {
   conn: typeof mongoose | null;
   promise: Promise<typeof mongoose> | null;
 }
 
-// Extend global for TypeScript
 declare global {
   var mongoose: MongooseCache | undefined;
 }
@@ -64,7 +60,7 @@ export function disconnectFromDatabase() {
 // Connect to MongoDB when the server starts
 connectToDatabase().catch(console.error);
 
-// Graceful disconnection when the server is shut down
+// Gracefully disconnect on termination
 process.on('SIGINT', async () => {
   await disconnectFromDatabase();
   process.exit(0);
