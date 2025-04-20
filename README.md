@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Recipe Finder
 
 A full-stack application that helps users discover recipes based on their preferences and dietary requirements, with the ability to save favorites and customize their experience.
@@ -5,6 +6,11 @@ A full-stack application that helps users discover recipes based on their prefer
 ## Live Demo
 
 Visit the live application at [recipe-finder-khaki-five.vercel.app](https://recipe-finder-khaki-five.vercel.app)
+=======
+# Recipe Finder App
+
+A full-stack application that allows users to search for recipes, save favorites, and manage their cooking preferences.
+>>>>>>> cfc4c53 (bug fixes, for deployement)
 
 ## Features
 
@@ -33,24 +39,35 @@ Visit the live application at [recipe-finder-khaki-five.vercel.app](https://reci
 
 ### Installation
 
+<<<<<<< HEAD
 1. Clone the repository:
    ```bash
    git clone https://github.com/Mukund934/Recipe-Finder.git
    cd Recipe-Finder
    ```
 
+=======
+1. Clone the repository
+>>>>>>> cfc4c53 (bug fixes, for deployement)
 2. Install dependencies:
    ```bash
    npm install
    ```
+<<<<<<< HEAD
 
 3. Create a `.env` file in the root directory with:
+=======
+3. Create a `.env` file in the root directory with the following variables:
+>>>>>>> cfc4c53 (bug fixes, for deployement)
    ```
    SPOONACULAR_API_KEY=your_api_key
    MONGODB_URI=your_mongodb_connection_string
    JWT_SECRET=your_jwt_secret
    ```
+<<<<<<< HEAD
 
+=======
+>>>>>>> cfc4c53 (bug fixes, for deployement)
 4. Create a `.env` file in the `client` directory:
    ```
    VITE_SPOONACULAR_API_KEY=your_api_key
@@ -74,6 +91,7 @@ npm run build
 
 This will build both the client and server for production deployment.
 
+<<<<<<< HEAD
 ## Deployment on Vercel
 
 1. Install Vercel CLI:
@@ -100,6 +118,11 @@ This will build both the client and server for production deployment.
    ```bash
    vercel --prod
    ```
+=======
+### Deployment on Vercel
+
+This project is configured for deployment on Vercel. Simply connect your Vercel account to your repository, and set the environment variables in the Vercel dashboard.
+>>>>>>> cfc4c53 (bug fixes, for deployement)
 
 ## API Endpoints
 
@@ -118,4 +141,8 @@ This will build both the client and server for production deployment.
 
 ## License
 
+<<<<<<< HEAD
 MIT
+=======
+MIT 
+>>>>>>> cfc4c53 (bug fixes, for deployement)

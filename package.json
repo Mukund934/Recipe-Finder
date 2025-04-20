@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
 <<<<<<< HEAD
+<<<<<<< HEAD
     "dev": "concurrently \"npm:dev:*\"",
     "dev:client": "vite --host --port 3000",
     "dev:server": "tsx --watch server/index.ts",
@@ -14,6 +15,12 @@
 =======
     "dev": "tsx server/index.ts",
     "build:client": "cd client && vite build",
+=======
+    "dev": "concurrently \"npm:dev:*\"",
+    "dev:client": "vite --host --port 3000",
+    "dev:server": "tsx --watch server/index.ts",
+    "build:client": "vite build",
+>>>>>>> cfc4c53 (bug fixes, for deployement)
     "build:server": "esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
     "build": "npm run build:client && npm run build:server",
 >>>>>>> 7641d6e (minor changes)

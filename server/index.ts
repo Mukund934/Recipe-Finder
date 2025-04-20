@@ -7,6 +7,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // CORS headers for Vercel deployment
+<<<<<<< HEAD
+=======
+app.use((req, res, next) => {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH");
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+
+	// Handle preflight requests
+	if (req.method === "OPTIONS") {
+		return res.status(200).end();
+	}
+
+	next();
+});
+
+// Logging middleware
+>>>>>>> cfc4c53 (bug fixes, for deployement)
 app.use((req, res, next) => {
 <<<<<<< HEAD
     res.header("Access-Control-Allow-Origin", "*");
@@ -119,23 +136,17 @@ app.use((req, res, next) => {
 	});
 
 	// Only set up Vite in development, after setting up all routes so the catch-all doesn't interfere.
-	if (app.get("env") === "development") {
+	if (process.env.NODE_ENV === "development") {
 		await setupVite(app, server);
 	} else {
 		serveStatic(app);
 	}
 
-	// Always serve the app on port 5000. This serves both the API and the client.
-	const port = 5000;
-	// Updated: Removed reusePort option to avoid Windows issues.
-	server.listen(
-		{
-			port,
-			host: "0.0.0.0",
-		},
-		() => {
-			log(`serving on port ${port}`);
-		}
-	);
+	// Use environment port if available (for Vercel), fallback to 5000
+	const port = process.env.PORT || 5000;
+
+	server.listen(port, () => {
+		log(`serving on port ${port}`);
+	});
 })();
 >>>>>>> ffe2096 (bug fix)

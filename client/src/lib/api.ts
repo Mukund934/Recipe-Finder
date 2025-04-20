@@ -17,7 +17,16 @@ const API_KEY =
 	"220280c3f65e4ac3b7c96bd8b98e0026";
 const BASE_URL = "https://api.spoonacular.com";
 
+<<<<<<< HEAD
 >>>>>>> ffe2096 (bug fix)
+=======
+// Determine the backend API URL based on environment
+const getApiUrl = () => {
+	// In production, use relative URL which will be handled by Vercel's routing
+	return "/api";
+};
+
+>>>>>>> cfc4c53 (bug fixes, for deployement)
 // Axios instance for Spoonacular API
 const spoonacularApi = axios.create({
 	baseURL: BASE_URL,
@@ -26,10 +35,14 @@ const spoonacularApi = axios.create({
 // Axios instance for our backend API
 const backendApi = axios.create({
 <<<<<<< HEAD
+<<<<<<< HEAD
   baseURL: getApiUrl(),
 =======
 	baseURL: "/api",
 >>>>>>> ffe2096 (bug fix)
+=======
+	baseURL: getApiUrl(),
+>>>>>>> cfc4c53 (bug fixes, for deployement)
 });
 
 // Add authorization header to all backend requests if token exists
@@ -372,8 +385,8 @@ export const searchRecipes = async (
 
 		enhancedParams.sort =
 			enhancedParams.diet ||
-			enhancedParams.cuisine ||
-			enhancedParams.includeIngredients
+				enhancedParams.cuisine ||
+				enhancedParams.includeIngredients
 				? "relevance"
 				: "popularity";
 
