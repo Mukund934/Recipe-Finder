@@ -71,11 +71,8 @@ export async function setupVite(app: Express, server: Server) {
 }
 
 export function serveStatic(app: Express) {
-<<<<<<< HEAD
-=======
   // For Vercel deployment, use dist/public path
->>>>>>> cfc4c53 (bug fixes, for deployement)
-  const distPath = path.resolve(__dirname, "..", "public");
+  const distPath = path.resolve(__dirname, "..", "dist", "public");
 
   if (!fs.existsSync(distPath)) {
     log(`Build directory not found at ${distPath}. Using fallback location.`);

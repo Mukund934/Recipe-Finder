@@ -1,34 +1,4 @@
 {
-<<<<<<< HEAD
-  "version": 2,
-  "buildCommand": "npm run build",
-  "installCommand": "npm install",
-  "builds": [
-    {
-      "src": "dist/index.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "dist/index.js"
-    },
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "dist/public/$1"
-    }
-  ],
-  "env": {
-    "MONGODB_URI": "@mongodb_uri",
-    "JWT_SECRET": "@jwt_secret",
-    "SPOONACULAR_API_KEY": "@spoonacular_api_key"
-  }
-}
-=======
 	"version": 2,
 	"buildCommand": "npm run build",
 	"outputDirectory": "dist/public",
@@ -52,11 +22,6 @@
 			"src": "/(.*)",
 			"dest": "dist/public/$1"
 		}
-<<<<<<< HEAD
-	]
-}
->>>>>>> 7641d6e (minor changes)
-=======
 	],
 	"env": {
 		"MONGODB_URI": "@mongodb_uri",
@@ -64,4 +29,3 @@
 		"SPOONACULAR_API_KEY": "@spoonacular_api_key"
 	}
 }
->>>>>>> cfc4c53 (bug fixes, for deployement)

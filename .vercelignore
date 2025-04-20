@@ -1,19 +1,11 @@
-<<<<<<< HEAD
 .git/
 node_modules/
 .env
 .env.local
 npm-debug.log
 .DS_Store
-=======
-.git
-node_modules
-.env
-npm-debug.log
-.DS_Store
-client/node_modules
+client/node_modules/
 client/.env
->>>>>>> cfc4c53 (bug fixes, for deployement)
 .replit
 .replit.nix
 replit.nix 
