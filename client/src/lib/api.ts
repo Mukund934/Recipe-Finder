@@ -1,30 +1,23 @@
 import axios from "axios";
 
-<<<<<<< HEAD
 // Load Spoonacular API key from Vite's environment variables
 const API_KEY = import.meta.env.VITE_SPOONACULAR_API_KEY || "220280c3f65e4ac3b7c96bd8b98e0026";
-=======
-// Use the provided API key
-const API_KEY = "220280c3f65e4ac3b7c96bd8b98e0026";
->>>>>>> f5a0667 (Implement user authentication with MongoDB and update API key; add numerous packages including bcrypt, jsonwebtoken, and mongoose.)
 const BASE_URL = "https://api.spoonacular.com";
 
-<<<<<<< HEAD
+// Determine the backend API URL based on environment
+const getApiUrl = () => {
+  // In production, use relative URL which will be handled by Vercel's routing
+  return "/api";
+};
+
 // Axios instance for Spoonacular API
-=======
-// Create axios instance for external API
->>>>>>> 42980d5 (Add user authentication and profile features.  Includes user registration, login, logout, profile management, and preference updates.)
 const spoonacularApi = axios.create({
   baseURL: BASE_URL,
 });
 
-<<<<<<< HEAD
 // Axios instance for our backend API
-=======
-// Create axios instance for our backend API
->>>>>>> 42980d5 (Add user authentication and profile features.  Includes user registration, login, logout, profile management, and preference updates.)
 const backendApi = axios.create({
-  baseURL: "/api",
+  baseURL: getApiUrl(),
 });
 
 // Add authorization header to all backend requests if token exists
@@ -41,10 +34,7 @@ backendApi.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-<<<<<<< HEAD
 // Types and Interfaces
-=======
->>>>>>> 42980d5 (Add user authentication and profile features.  Includes user registration, login, logout, profile management, and preference updates.)
 export type Diet = "vegetarian" | "vegan" | "glutenFree" | "dairyFree";
 export type SortOption = "popularity" | "time" | "relevance";
 
@@ -182,19 +172,13 @@ export const registerUser = async (name: string, email: string, password: string
 export const loginUser = async (email: string, password: string): Promise<AuthResponse> => {
   try {
     const response = await backendApi.post('/auth/login', { email, password });
-<<<<<<< HEAD
-=======
-    
+
     // Save token to localStorage
->>>>>>> 42980d5 (Add user authentication and profile features.  Includes user registration, login, logout, profile management, and preference updates.)
     if (response.data.token) {
       localStorage.setItem('recipe_finder_token', response.data.token);
       localStorage.setItem('recipe_finder_user', JSON.stringify(response.data.user));
     }
-<<<<<<< HEAD
-=======
-    
->>>>>>> 42980d5 (Add user authentication and profile features.  Includes user registration, login, logout, profile management, and preference updates.)
+
     return response.data;
   } catch (error) {
     console.error('Login error:', error);
@@ -229,20 +213,14 @@ export const getUserProfile = async (): Promise<User> => {
 export const updateUserPreferences = async (preferences: UserPreferences): Promise<User> => {
   try {
     const response = await backendApi.patch('/user/preferences', preferences);
-<<<<<<< HEAD
-=======
-    
+
     // Update the stored user data
->>>>>>> 42980d5 (Add user authentication and profile features.  Includes user registration, login, logout, profile management, and preference updates.)
     const currentUser = getCurrentUser();
     if (currentUser) {
       const updatedUser = { ...currentUser, ...preferences };
       localStorage.setItem('recipe_finder_user', JSON.stringify(updatedUser));
     }
-<<<<<<< HEAD
-=======
-    
->>>>>>> 42980d5 (Add user authentication and profile features.  Includes user registration, login, logout, profile management, and preference updates.)
+
     return response.data;
   } catch (error) {
     console.error('Error updating user preferences:', error);
@@ -254,50 +232,32 @@ export const updateUserPreferences = async (preferences: UserPreferences): Promi
 
 export const searchRecipes = async (params: SearchParams): Promise<SearchResponse> => {
   try {
-<<<<<<< HEAD
-    const currentUser = getCurrentUser();
-    let enhancedParams = { ...params };
-
-    if (currentUser) {
-      if (currentUser.dietPreferences?.length && !params.diet?.length) {
-        enhancedParams.diet = currentUser.dietPreferences as Diet[];
-      }
-      if (currentUser.favoriteCuisines?.length && !params.cuisine) {
-        enhancedParams.cuisine = currentUser.favoriteCuisines[0];
-      }
-      if (currentUser.favoriteIngredients?.length && !params.includeIngredients?.length) {
-        enhancedParams.includeIngredients = currentUser.favoriteIngredients.slice(0, 3);
-      }
-    }
-
-    enhancedParams.sort = enhancedParams.diet || enhancedParams.cuisine || enhancedParams.includeIngredients ? 'relevance' : 'popularity';
-
-=======
     // Get user preferences to enhance search if user is logged in
     const currentUser = getCurrentUser();
     let enhancedParams = { ...params };
-    
+
     // Incorporate user preferences if available and if the user hasn't explicitly set these filters
     if (currentUser) {
       // Add diet preferences if user has them and hasn't specified a diet
       if (currentUser.dietPreferences?.length && !params.diet?.length) {
         enhancedParams.diet = currentUser.dietPreferences as Diet[];
       }
-      
+
       // Add favorite cuisines if user has them and hasn't specified a cuisine
       if (currentUser.favoriteCuisines?.length && !params.cuisine) {
         // Just use the first favorite cuisine when auto-suggesting
         enhancedParams.cuisine = currentUser.favoriteCuisines[0];
       }
-      
+
       // Add favorite ingredients if user has them and hasn't specified ingredients
       if (currentUser.favoriteIngredients?.length && !params.includeIngredients?.length) {
         // Just include up to 3 favorite ingredients to avoid over-constraining the search
         enhancedParams.includeIngredients = currentUser.favoriteIngredients.slice(0, 3);
       }
     }
-    
->>>>>>> 42980d5 (Add user authentication and profile features.  Includes user registration, login, logout, profile management, and preference updates.)
+
+    enhancedParams.sort = enhancedParams.diet || enhancedParams.cuisine || enhancedParams.includeIngredients ? 'relevance' : 'popularity';
+
     const response = await spoonacularApi.get(`/recipes/complexSearch`, {
       params: {
         apiKey: API_KEY,
@@ -334,12 +294,6 @@ export const getRecipeDetails = async (id: number): Promise<RecipeDetail> => {
   }
 };
 
-<<<<<<< HEAD
-export const getRecommendedRecipes = async (): Promise<SearchResponse> => {
-  try {
-    const currentUser = getCurrentUser();
-    const params: SearchParams = { number: 10 };
-=======
 // Recommendation API
 export const getRecommendedRecipes = async (): Promise<SearchResponse> => {
   try {
@@ -347,36 +301,25 @@ export const getRecommendedRecipes = async (): Promise<SearchResponse> => {
     const params: SearchParams = {
       number: 10,
     };
-    
+
     // Add personalization if user is logged in
->>>>>>> 42980d5 (Add user authentication and profile features.  Includes user registration, login, logout, profile management, and preference updates.)
     if (currentUser) {
       if (currentUser.dietPreferences?.length) {
         params.diet = currentUser.dietPreferences as Diet[];
       }
-<<<<<<< HEAD
+
       if (currentUser.favoriteCuisines?.length) {
         params.cuisine = currentUser.favoriteCuisines[0];
       }
-=======
-      
-      if (currentUser.favoriteCuisines?.length) {
-        params.cuisine = currentUser.favoriteCuisines[0];
-      }
-      
->>>>>>> 42980d5 (Add user authentication and profile features.  Includes user registration, login, logout, profile management, and preference updates.)
+
       if (currentUser.favoriteIngredients?.length) {
         params.includeIngredients = currentUser.favoriteIngredients.slice(0, 3);
       }
     }
-<<<<<<< HEAD
-    params.sort = params.diet || params.cuisine || params.includeIngredients ? 'relevance' : 'popularity';
-=======
-    
+
     // Default to popular sort if no personal preferences
     params.sort = params.diet || params.cuisine || params.includeIngredients ? 'relevance' : 'popularity';
-    
->>>>>>> 42980d5 (Add user authentication and profile features.  Includes user registration, login, logout, profile management, and preference updates.)
+
     return await searchRecipes(params);
   } catch (error) {
     console.error("Error getting recommended recipes:", error);
@@ -384,10 +327,7 @@ export const getRecommendedRecipes = async (): Promise<SearchResponse> => {
   }
 };
 
-<<<<<<< HEAD
-=======
 // Favorites API
->>>>>>> 42980d5 (Add user authentication and profile features.  Includes user registration, login, logout, profile management, and preference updates.)
 export const addFavoriteRecipe = async (recipeId: number): Promise<void> => {
   await backendApi.post("/favorites", { recipeId });
 };

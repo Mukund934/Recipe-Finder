@@ -1,15 +1,19 @@
 {
-  "name": "rest-express",
+  "name": "recipe-finder",
   "version": "1.0.0",
   "type": "module",
   "license": "MIT",
   "scripts": {
-  "dev": "tsx server/index.ts",
-  "build": "npm run build:client && npm run build:server",
-  "build:client": "cd client && npm install && vite build",
-  "build:server": "cd server && npm install && esbuild index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
-  "start": "NODE_ENV=production node dist/index.js"
-},
+    "dev": "concurrently \"npm:dev:*\"",
+    "dev:client": "vite --host --port 3000",
+    "dev:server": "tsx --watch server/index.ts",
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "vite build",
+    "build:server": "esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
+    "start": "NODE_ENV=production node dist/index.js",
+    "check": "tsc",
+    "db:push": "drizzle-kit push"
+  },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
     "@jridgewell/trace-mapping": "^0.3.25",
@@ -63,6 +67,7 @@
     "lucide-react": "^0.453.0",
     "memorystore": "^1.6.7",
     "mongoose": "^8.12.2",
+    "nanoid": "^4.0.2",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "react": "^18.3.1",
@@ -95,6 +100,7 @@
     "@types/ws": "^8.5.13",
     "@vitejs/plugin-react": "^4.3.2",
     "autoprefixer": "^10.4.20",
+    "concurrently": "^8.2.2",
     "drizzle-kit": "^0.30.4",
     "esbuild": "^0.25.0",
     "postcss": "^8.4.47",
@@ -105,5 +111,8 @@
   },
   "optionalDependencies": {
     "bufferutil": "^4.0.8"
+  },
+  "engines": {
+    "node": ">=16.0.0"
   }
 }

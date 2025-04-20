@@ -24,7 +24,7 @@ declare global {
 const authenticate = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const authHeader = req.headers.authorization;
-    
+
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       return res.status(401).json({ message: 'Unauthorized: No token provided' });
     }
@@ -36,7 +36,7 @@ const authenticate = async (req: Request, res: Response, next: NextFunction) => 
       if (err) {
         return res.status(401).json({ message: 'Unauthorized: Invalid token' });
       }
-      
+
       req.user = decoded;
       next();
     });
@@ -74,27 +74,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/auth/register", async (req, res) => {
     try {
       const validatedData = registerSchema.parse(req.body);
-      
+
       // Check if user already exists
       const existingUser = await User.findOne({ email: validatedData.email });
       if (existingUser) {
         return res.status(400).json({ message: "User with this email already exists" });
       }
-      
+
       // Create new user
       const user = new User({
         name: validatedData.name,
         email: validatedData.email,
         password: validatedData.password,
       });
-      
+
       await user.save();
-      
+
       res.status(201).json({ message: "User registered successfully" });
     } catch (error) {
       if (error instanceof z.ZodError) {
-        return res.status(400).json({ 
-          message: "Validation error", 
+        return res.status(400).json({
+          message: "Validation error",
           errors: error.errors.map(e => ({ path: e.path.join('.'), message: e.message }))
         });
       }
@@ -102,24 +102,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ message: "Failed to register user" });
     }
   });
-  
+
   // Login endpoint
   app.post("/api/auth/login", async (req, res) => {
     try {
       const validatedData = loginSchema.parse(req.body);
-      
+
       // Find user by email
       const user = await User.findOne({ email: validatedData.email });
       if (!user) {
         return res.status(401).json({ message: "Invalid email or password" });
       }
-      
+
       // Check password
       const isPasswordValid = await user.comparePassword(validatedData.password);
       if (!isPasswordValid) {
         return res.status(401).json({ message: "Invalid email or password" });
       }
-      
+
       // Generate JWT token
       const secret = process.env.JWT_SECRET || 'recipe-finder-secret-key';
       const token = jwt.sign(
@@ -127,8 +127,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         secret,
         { expiresIn: '7d' }
       );
-      
-      res.json({ 
+
+      res.json({
         message: "Login successful",
         token,
         user: {
@@ -142,8 +142,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     } catch (error) {
       if (error instanceof z.ZodError) {
-        return res.status(400).json({ 
-          message: "Validation error", 
+        return res.status(400).json({
+          message: "Validation error",
           errors: error.errors.map(e => ({ path: e.path.join('.'), message: e.message }))
         });
       }
@@ -151,7 +151,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ message: "Failed to login" });
     }
   });
-  
+
   // Get user profile
   app.get("/api/user/profile", authenticate, async (req, res) => {
     try {
@@ -159,34 +159,34 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
-      
+
       res.json(user);
     } catch (error) {
       console.error("Profile fetch error:", error);
       res.status(500).json({ message: "Failed to fetch profile" });
     }
   });
-  
+
   // Update user preferences
   app.patch("/api/user/preferences", authenticate, async (req, res) => {
     try {
       const validatedData = updatePreferencesSchema.parse(req.body);
-      
+
       const user = await User.findByIdAndUpdate(
         req.user?.id,
         { $set: validatedData },
         { new: true }
       ).select('-password');
-      
+
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
-      
+
       res.json(user);
     } catch (error) {
       if (error instanceof z.ZodError) {
-        return res.status(400).json({ 
-          message: "Validation error", 
+        return res.status(400).json({
+          message: "Validation error",
           errors: error.errors.map(e => ({ path: e.path.join('.'), message: e.message }))
         });
       }
@@ -199,9 +199,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const MOCK_USER_ID = 1;
 
   // Get all favorites for the current user
-  app.get("/api/favorites", async (req, res) => {
+  app.get("/api/favorites", authenticate, async (req, res) => {
     try {
-      const favorites = await storage.getFavorites(MOCK_USER_ID);
+      // Use authenticated user ID if available, fallback to mock ID for development
+      const userId = req.user?.id ? parseInt(req.user.id) || req.user.id : MOCK_USER_ID;
+
+      const favorites = await storage.getFavorites(userId);
       // Return just the recipe IDs for the frontend
       const recipeIds = favorites.map(fav => fav.recipeId);
       res.json(recipeIds);
@@ -212,19 +215,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Add a recipe to favorites
-  app.post("/api/favorites", async (req, res) => {
+  app.post("/api/favorites", authenticate, async (req, res) => {
     try {
+      // Use authenticated user ID if available, fallback to mock ID for development
+      const userId = req.user?.id ? parseInt(req.user.id) || req.user.id : MOCK_USER_ID;
+
       const validatedData = insertFavoriteSchema.parse({
-        userId: MOCK_USER_ID,
+        userId: userId,
         recipeId: req.body.recipeId,
       });
-      
+
       // Check if the favorite already exists
-      const existing = await storage.getFavorite(MOCK_USER_ID, req.body.recipeId);
+      const existing = await storage.getFavorite(userId, req.body.recipeId);
       if (existing) {
         return res.status(400).json({ message: "Recipe is already in favorites" });
       }
-      
+
       const favorite = await storage.addFavorite(validatedData);
       res.status(201).json(favorite);
     } catch (error) {
@@ -237,21 +243,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Remove a recipe from favorites
-  app.delete("/api/favorites/:recipeId", async (req, res) => {
+  app.delete("/api/favorites/:recipeId", authenticate, async (req, res) => {
     try {
       const recipeId = parseInt(req.params.recipeId);
       if (isNaN(recipeId)) {
         return res.status(400).json({ message: "Invalid recipe ID" });
       }
-      
+
+      // Use authenticated user ID if available, fallback to mock ID for development
+      const userId = req.user?.id ? parseInt(req.user.id) || req.user.id : MOCK_USER_ID;
+
       // Check if the favorite exists
-      const existing = await storage.getFavorite(MOCK_USER_ID, recipeId);
+      const existing = await storage.getFavorite(userId, recipeId);
       if (!existing) {
         return res.status(404).json({ message: "Favorite not found" });
       }
-      
-      await storage.removeFavorite(MOCK_USER_ID, recipeId);
-      res.status(204).end();
+
+      await storage.removeFavorite(userId, recipeId);
+      res.status(200).json({ message: "Favorite removed successfully" });
     } catch (error) {
       console.error("Error removing favorite:", error);
       res.status(500).json({ message: "Failed to remove favorite" });
