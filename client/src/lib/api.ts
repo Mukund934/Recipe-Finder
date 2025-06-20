@@ -1,51 +1,22 @@
 import axios from "axios";
 
-// Load Spoonacular API key from Vite's environment variables
-<<<<<<< HEAD
-const API_KEY = import.meta.env.VITE_SPOONACULAR_API_KEY || "220280c3f65e4ac3b7c96bd8b98e0026";
-const BASE_URL = "https://api.spoonacular.com";
-
-// Determine the backend API URL based on environment
-const getApiUrl = () => {
-  // In production, use relative URL which will be handled by Vercel's routing
-  return "/api";
-};
-
-=======
 const API_KEY =
 	import.meta.env.VITE_SPOONACULAR_API_KEY ||
 	"220280c3f65e4ac3b7c96bd8b98e0026";
 const BASE_URL = "https://api.spoonacular.com";
 
-<<<<<<< HEAD
->>>>>>> ffe2096 (bug fix)
-=======
-// Determine the backend API URL based on environment
 const getApiUrl = () => {
-	// In production, use relative URL which will be handled by Vercel's routing
 	return "/api";
 };
 
->>>>>>> cfc4c53 (bug fixes, for deployement)
-// Axios instance for Spoonacular API
 const spoonacularApi = axios.create({
 	baseURL: BASE_URL,
 });
 
-// Axios instance for our backend API
 const backendApi = axios.create({
-<<<<<<< HEAD
-<<<<<<< HEAD
-  baseURL: getApiUrl(),
-=======
-	baseURL: "/api",
->>>>>>> ffe2096 (bug fix)
-=======
 	baseURL: getApiUrl(),
->>>>>>> cfc4c53 (bug fixes, for deployement)
 });
 
-// Add authorization header to all backend requests if token exists
 const getToken = () => localStorage.getItem("recipe_finder_token");
 
 backendApi.interceptors.request.use(
@@ -182,8 +153,7 @@ export interface SearchResponse {
 	totalResults: number;
 }
 
-// Authentication API functions
-
+// Auth functions
 export const registerUser = async (
 	name: string,
 	email: string,
@@ -202,23 +172,6 @@ export const registerUser = async (
 	}
 };
 
-<<<<<<< HEAD
-export const loginUser = async (email: string, password: string): Promise<AuthResponse> => {
-  try {
-    const response = await backendApi.post('/auth/login', { email, password });
-
-    // Save token to localStorage
-    if (response.data.token) {
-      localStorage.setItem('recipe_finder_token', response.data.token);
-      localStorage.setItem('recipe_finder_user', JSON.stringify(response.data.user));
-    }
-
-    return response.data;
-  } catch (error) {
-    console.error('Login error:', error);
-    throw error;
-  }
-=======
 export const loginUser = async (
 	email: string,
 	password: string
@@ -240,7 +193,6 @@ export const loginUser = async (
 		console.error("Login error:", error);
 		throw error;
 	}
->>>>>>> ffe2096 (bug fix)
 };
 
 export const logoutUser = (): void => {
@@ -267,32 +219,11 @@ export const getUserProfile = async (): Promise<User> => {
 	}
 };
 
-<<<<<<< HEAD
-export const updateUserPreferences = async (preferences: UserPreferences): Promise<User> => {
-  try {
-    const response = await backendApi.patch('/user/preferences', preferences);
-
-    // Update the stored user data
-    const currentUser = getCurrentUser();
-    if (currentUser) {
-      const updatedUser = { ...currentUser, ...preferences };
-      localStorage.setItem('recipe_finder_user', JSON.stringify(updatedUser));
-    }
-
-    return response.data;
-  } catch (error) {
-    console.error('Error updating user preferences:', error);
-    throw error;
-  }
-=======
 export const updateUserPreferences = async (
 	preferences: UserPreferences
 ): Promise<User> => {
 	try {
-		const response = await backendApi.patch(
-			"/user/preferences",
-			preferences
-		);
+		const response = await backendApi.patch("/user/preferences", preferences);
 		const currentUser = getCurrentUser();
 		if (currentUser) {
 			const updatedUser = { ...currentUser, ...preferences };
@@ -306,60 +237,9 @@ export const updateUserPreferences = async (
 		console.error("Error updating user preferences:", error);
 		throw error;
 	}
->>>>>>> ffe2096 (bug fix)
 };
 
-// Recipe API functions
-
-<<<<<<< HEAD
-export const searchRecipes = async (params: SearchParams): Promise<SearchResponse> => {
-  try {
-    // Get user preferences to enhance search if user is logged in
-    const currentUser = getCurrentUser();
-    let enhancedParams = { ...params };
-
-    // Incorporate user preferences if available and if the user hasn't explicitly set these filters
-    if (currentUser) {
-      // Add diet preferences if user has them and hasn't specified a diet
-      if (currentUser.dietPreferences?.length && !params.diet?.length) {
-        enhancedParams.diet = currentUser.dietPreferences as Diet[];
-      }
-
-      // Add favorite cuisines if user has them and hasn't specified a cuisine
-      if (currentUser.favoriteCuisines?.length && !params.cuisine) {
-        // Just use the first favorite cuisine when auto-suggesting
-        enhancedParams.cuisine = currentUser.favoriteCuisines[0];
-      }
-
-      // Add favorite ingredients if user has them and hasn't specified ingredients
-      if (currentUser.favoriteIngredients?.length && !params.includeIngredients?.length) {
-        // Just include up to 3 favorite ingredients to avoid over-constraining the search
-        enhancedParams.includeIngredients = currentUser.favoriteIngredients.slice(0, 3);
-      }
-    }
-
-    enhancedParams.sort = enhancedParams.diet || enhancedParams.cuisine || enhancedParams.includeIngredients ? 'relevance' : 'popularity';
-
-    const response = await spoonacularApi.get(`/recipes/complexSearch`, {
-      params: {
-        apiKey: API_KEY,
-        addRecipeNutrition: true,
-        query: enhancedParams.query || "",
-        diet: enhancedParams.diet?.join(","),
-        cuisine: enhancedParams.cuisine,
-        maxReadyTime: enhancedParams.maxReadyTime,
-        includeIngredients: enhancedParams.includeIngredients?.join(","),
-        sort: enhancedParams.sort === "relevance" ? undefined : enhancedParams.sort,
-        offset: enhancedParams.offset || 0,
-        number: enhancedParams.number || 10,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Error searching recipes:", error);
-    throw error;
-  }
-=======
+// Recipe search
 export const searchRecipes = async (
 	params: SearchParams
 ): Promise<SearchResponse> => {
@@ -385,8 +265,8 @@ export const searchRecipes = async (
 
 		enhancedParams.sort =
 			enhancedParams.diet ||
-				enhancedParams.cuisine ||
-				enhancedParams.includeIngredients
+			enhancedParams.cuisine ||
+			enhancedParams.includeIngredients
 				? "relevance"
 				: "popularity";
 
@@ -413,20 +293,16 @@ export const searchRecipes = async (
 		console.error("Error searching recipes:", error);
 		throw error;
 	}
->>>>>>> ffe2096 (bug fix)
 };
 
 export const getRecipeDetails = async (id: number): Promise<RecipeDetail> => {
 	try {
-		const response = await spoonacularApi.get(
-			`/recipes/${id}/information`,
-			{
-				params: {
-					apiKey: API_KEY,
-					includeNutrition: true,
-				},
-			}
-		);
+		const response = await spoonacularApi.get(`/recipes/${id}/information`, {
+			params: {
+				apiKey: API_KEY,
+				includeNutrition: true,
+			},
+		});
 		return response.data;
 	} catch (error) {
 		console.error("Error fetching recipe details:", error);
@@ -435,40 +311,10 @@ export const getRecipeDetails = async (id: number): Promise<RecipeDetail> => {
 };
 
 export const getRecommendedRecipes = async (): Promise<SearchResponse> => {
-<<<<<<< HEAD
-  try {
-    const currentUser = getCurrentUser();
-    const params: SearchParams = {
-      number: 10,
-    };
-
-    // Add personalization if user is logged in
-    if (currentUser) {
-      if (currentUser.dietPreferences?.length) {
-        params.diet = currentUser.dietPreferences as Diet[];
-      }
-
-      if (currentUser.favoriteCuisines?.length) {
-        params.cuisine = currentUser.favoriteCuisines[0];
-      }
-
-      if (currentUser.favoriteIngredients?.length) {
-        params.includeIngredients = currentUser.favoriteIngredients.slice(0, 3);
-      }
-    }
-
-    // Default to popular sort if no personal preferences
-    params.sort = params.diet || params.cuisine || params.includeIngredients ? 'relevance' : 'popularity';
-
-    return await searchRecipes(params);
-  } catch (error) {
-    console.error("Error getting recommended recipes:", error);
-    throw error;
-  }
-=======
 	try {
 		const currentUser = getCurrentUser();
 		const params: SearchParams = { number: 10 };
+
 		if (currentUser) {
 			if (currentUser.dietPreferences?.length) {
 				params.diet = currentUser.dietPreferences as Diet[];
@@ -481,23 +327,26 @@ export const getRecommendedRecipes = async (): Promise<SearchResponse> => {
 					currentUser.favoriteIngredients.slice(0, 3);
 			}
 		}
+
 		params.sort =
 			params.diet || params.cuisine || params.includeIngredients
 				? "relevance"
 				: "popularity";
+
 		return await searchRecipes(params);
 	} catch (error) {
 		console.error("Error getting recommended recipes:", error);
 		throw error;
 	}
->>>>>>> ffe2096 (bug fix)
 };
 
 export const addFavoriteRecipe = async (recipeId: number): Promise<void> => {
 	await backendApi.post("/favorites", { recipeId });
 };
 
-export const removeFavoriteRecipe = async (recipeId: number): Promise<void> => {
+export const removeFavoriteRecipe = async (
+	recipeId: number
+): Promise<void> => {
 	await backendApi.delete(`/favorites/${recipeId}`);
 };
 
