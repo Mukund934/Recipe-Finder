@@ -6,14 +6,7 @@ import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import Favorites from "@/pages/favorites";
 import Login from "@/pages/login";
-<<<<<<< HEAD
-<<<<<<< HEAD
 import Profile from "@/pages/profile";
-=======
->>>>>>> 06d18af (Add user authentication with login and registration functionality.  Includes frontend and backend implementation, using JWT for authentication.)
-=======
-import Profile from "@/pages/profile";
->>>>>>> 42980d5 (Add user authentication and profile features.  Includes user registration, login, logout, profile management, and preference updates.)
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useState, useEffect } from "react";
@@ -25,14 +18,7 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/favorites" component={Favorites} />
       <Route path="/login" component={Login} />
-<<<<<<< HEAD
-<<<<<<< HEAD
       <Route path="/profile" component={Profile} />
-=======
->>>>>>> 06d18af (Add user authentication with login and registration functionality.  Includes frontend and backend implementation, using JWT for authentication.)
-=======
-      <Route path="/profile" component={Profile} />
->>>>>>> 42980d5 (Add user authentication and profile features.  Includes user registration, login, logout, profile management, and preference updates.)
       <Route component={NotFound} />
     </Switch>
   );
@@ -43,7 +29,6 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check if user is authenticated and get user data
     if (isAuthenticated()) {
       const userData = getCurrentUser();
       setUser(userData);
