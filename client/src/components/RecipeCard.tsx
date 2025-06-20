@@ -14,13 +14,9 @@ export default function RecipeCard({ recipe, onClick, isFavorite = false }: Reci
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
-  // Get calories from recipe nutrition data if available
   const calories = recipe.nutrition?.nutrients.find(n => n.name === "Calories")?.amount || 0;
-
-  // Extract diets from recipe if available, or use an empty array
   const diets = recipe.diets || [];
 
-  // Add recipe to favorites
   const addFavoriteMutation = useMutation({
     mutationFn: addFavoriteRecipe,
     onSuccess: () => {
@@ -40,7 +36,6 @@ export default function RecipeCard({ recipe, onClick, isFavorite = false }: Reci
     },
   });
 
-  // Remove recipe from favorites
   const removeFavoriteMutation = useMutation({
     mutationFn: removeFavoriteRecipe,
     onSuccess: () => {
@@ -62,49 +57,34 @@ export default function RecipeCard({ recipe, onClick, isFavorite = false }: Reci
 
   const toggleFavorite = (e: React.MouseEvent) => {
     e.stopPropagation();
-    const newFavoriteState = !favorite;
-    setFavorite(newFavoriteState);
-    
-    if (newFavoriteState) {
-      addFavoriteMutation.mutate(recipe.id);
-    } else {
-      removeFavoriteMutation.mutate(recipe.id);
-    }
+    const newState = !favorite;
+    setFavorite(newState);
+    newState ? addFavoriteMutation.mutate(recipe.id) : removeFavoriteMutation.mutate(recipe.id);
   };
 
-  // Get cuisine type or default to a category
-  let cuisineType = "Other";
-  if (recipe.cuisines && recipe.cuisines.length > 0) {
-    cuisineType = recipe.cuisines[0];
-  } else if (recipe.dishTypes && recipe.dishTypes.length > 0) {
-    cuisineType = recipe.dishTypes[0];
-  }
-  
+  const cuisineType =
+    recipe.cuisines?.[0] || recipe.dishTypes?.[0] || "Other";
+
   return (
-    <div 
-      className="recipe-card bg-white shadow-sm animate-fade-in"
-      onClick={onClick}
-    >
+    <div className="recipe-card bg-white shadow-sm animate-fade-in" onClick={onClick}>
       <div className="relative overflow-hidden group">
-        <img 
-          src={recipe.image} 
-          alt={recipe.title} 
-          className="w-full h-52 object-cover transition-transform duration-700 group-hover:scale-105" 
+        <img
+          src={recipe.image}
+          alt={recipe.title}
+          className="w-full h-52 object-cover transition-transform duration-700 group-hover:scale-105"
         />
         <div className="absolute top-2 right-2 z-10">
-          <button 
+          <button
             className="text-white p-2 rounded-full bg-black/40 hover:bg-primary/90 transition-all duration-300 hover:scale-110"
             onClick={toggleFavorite}
             aria-label={favorite ? "Remove from favorites" : "Add to favorites"}
           >
-            <i className={`${favorite ? 'fas text-primary' : 'far'} fa-heart text-lg`}></i>
+            <i className={`${favorite ? "fas text-primary" : "far"} fa-heart text-lg`}></i>
           </button>
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-            <span className="text-white text-sm font-medium">
-              Click for details
-            </span>
+            <span className="text-white text-sm font-medium">Click for details</span>
           </div>
         </div>
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3">
@@ -119,7 +99,9 @@ export default function RecipeCard({ recipe, onClick, isFavorite = false }: Reci
         </div>
       </div>
       <div className="p-4">
-        <h3 className="font-heading font-semibold text-lg mb-2 line-clamp-2 group-hover:text-primary transition-colors">{recipe.title}</h3>
+        <h3 className="font-heading font-semibold text-lg mb-2 line-clamp-2 group-hover:text-primary transition-colors">
+          {recipe.title}
+        </h3>
         <div className="flex items-center text-sm text-neutral-700 mb-3">
           <div className="flex items-center mr-4">
             <i className="fas fa-utensils text-primary mr-1.5"></i>
@@ -131,19 +113,8 @@ export default function RecipeCard({ recipe, onClick, isFavorite = false }: Reci
           </div>
         </div>
         <div className="flex flex-wrap gap-1.5">
-<<<<<<< HEAD
-<<<<<<< HEAD
-          {diets.slice(0, 3).map((diet: string, index: number) => (
-=======
-          {diets.slice(0, 3).map((diet, index) => (
->>>>>>> 54d573e (Enhance recipe card UI with animations, hover effects, and responsive design; improve overall aesthetics and user experience.)
-=======
-          {diets.slice(0, 3).map((diet: string, index: number) => (
->>>>>>> b7a6e51 (Enhance UI/UX: Implement responsive design, add animations, and improve styling across multiple components (Header, HeroSection, FilterPanel, RecipeCard).  Include improved API data handling.)
-            <span 
-              key={index} 
-              className="badge-primary text-xs"
-            >
+          {diets.slice(0, 3).map((diet, i) => (
+            <span key={i} className="badge-primary text-xs">
               {diet}
             </span>
           ))}
