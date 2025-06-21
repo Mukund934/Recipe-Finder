@@ -1,148 +1,227 @@
-<<<<<<< HEAD
-# Recipe Finder
 
-A full-stack application that helps users discover recipes based on their preferences and dietary requirements, with the ability to save favorites and customize their experience.
+---
 
-## Live Demo
+# 🍽️ Recipe Finder
 
-Visit the live application at [recipe-finder-khaki-five.vercel.app](https://recipe-finder-khaki-five.vercel.app)
-=======
-# Recipe Finder App
+🔎 Discover Meals Tailored to Your Taste
 
-A full-stack application that allows users to search for recipes, save favorites, and manage their cooking preferences.
->>>>>>> cfc4c53 (bug fixes, for deployement)
+---
 
-## Features
+## 📖 Overview
 
-- Search recipes by name, ingredients, cuisine, or dietary preferences
-- View detailed recipe information including ingredients and instructions
-- Save favorite recipes to your profile
-- User authentication and profile management
-- Responsive design for mobile and desktop
+Finding the perfect recipe can be time-consuming, especially when managing dietary needs or personal preferences. **Recipe Finder** solves this by offering a smart, responsive platform that helps users discover, explore, and save recipes tailored to their dietary lifestyles.
 
-## Technology Stack
+With powerful search filters, Spoonacular API integration, and secure user profiles, this full-stack web app is your personal cooking assistant — whether you're a seasoned chef or just getting started.
 
-- **Frontend**: React, TypeScript, TailwindCSS, shadcn/ui components
-- **Backend**: Express.js, Node.js
-- **Database**: MongoDB (user data), Drizzle ORM (favorites)
-- **API**: Spoonacular Recipe API
-- **Authentication**: JWT-based authentication
-- **Deployment**: Vercel
 
-## Getting Started
 
-### Prerequisites
+---
 
-- Node.js 16+ installed
-- A Spoonacular API key (get one at [spoonacular.com/food-api](https://spoonacular.com/food-api))
-- MongoDB connection string
+## 🌟 Features
 
-### Installation
+### 🥗 Smart Recipe Search
 
-<<<<<<< HEAD
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/Mukund934/Recipe-Finder.git
-   cd Recipe-Finder
-   ```
+Search by ingredients, cuisine, diet preferences (e.g., vegan, gluten-free), or ready time.
 
-=======
-1. Clone the repository
->>>>>>> cfc4c53 (bug fixes, for deployement)
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-<<<<<<< HEAD
+### 📋 Nutrition & Instructions
 
-3. Create a `.env` file in the root directory with:
-=======
-3. Create a `.env` file in the root directory with the following variables:
->>>>>>> cfc4c53 (bug fixes, for deployement)
-   ```
-   SPOONACULAR_API_KEY=your_api_key
-   MONGODB_URI=your_mongodb_connection_string
-   JWT_SECRET=your_jwt_secret
-   ```
-<<<<<<< HEAD
+View full nutritional data, ingredients list, and cooking instructions for each recipe.
 
-=======
->>>>>>> cfc4c53 (bug fixes, for deployement)
-4. Create a `.env` file in the `client` directory:
-   ```
-   VITE_SPOONACULAR_API_KEY=your_api_key
-   ```
+### ❤️ Save Favorites
 
-### Development
+Create an account and bookmark your favorite recipes with a single click.
 
-Run the development server:
+### 👤 User Authentication
+
+Secure login/register system with JWT-based authentication and MongoDB session storage.
+
+### 📱 Responsive UI
+
+Optimized experience for both desktop and mobile using **TailwindCSS** and **shadcn/ui**.
+---
+
+
+## 🚀 Live Project
+
+🔗 **[Visit Recipe Finder →](https://recipe-finder-khaki-five.vercel.app/)**
+
+---
+
+
+## 🎥 Demo / Preview
+
+> Below are GIF previews of the working application:
+
+### Short preview gif 1
+
+![Preview 1](.preview3-ezgif.gif)
+
+### Short preview gif 2
+
+![Preview 2](.preview4-ezgif.gif)
+
+> For Complete full length HD video previews, visit the [📂 Google Drive Folder](https://drive.google.com/drive/folders/1pUX8T4M67cGgYlID7e_nJuD8_kHLmaXz?usp=sharing)
+
+---
+
+## 🛠️ How It Works
+
+### 🧩 Frontend
+
+* Built with **React + TypeScript**
+* TailwindCSS and shadcn/ui for styling
+* Axios for API handling
+* Vite for fast builds
+
+### 🔐 Backend
+
+* **Node.js + Express.js**
+* MongoDB for user data
+* Drizzle ORM to manage favorites
+* JWT for user authentication
+* Hosted on **Vercel**
+
+### 🌐 API
+
+* Integrates with **Spoonacular API** to fetch real-time recipe data.
+
+---
+
+## 🚧 Challenges and ✅ Solutions
+
+### 🔐 Authentication Security
+
+Implemented JWT + environment-based secret handling for secure login.
+
+### 🌍 API Rate Limits
+
+Cached results and user preferences to reduce redundant API calls.
+
+### 📦 Full-Stack Integration
+
+Ensured seamless communication between client and server using RESTful routes and Axios interceptors.
+
+---
+
+## 🔮 Future Scope
+
+* 📦 Add meal planner and grocery list generation
+* 🍽️ Recipe sharing between users
+* 🧠 AI-based recipe suggestions using user behavior
+* 🌐 International recipe support with language filters
+* 📱 PWA support for offline recipe access
+
+---
+
+## 🎯 Why Choose Recipe Finder?
+
+✅ Personalized suggestions tailored to **you**
+⚡ Fast and modern tech stack using Vite + Tailwind
+🔐 Secure user login and preference management
+📚 Nutrition-rich recipe results
+📱 Fully responsive and optimized for all devices
+
+---
+
+## 🖥️ Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/Mukund934/Recipe-Finder.git
+cd Recipe-Finder
+
+# Install dependencies
+npm install
+```
+
+### Create Environment Variables
+
+#### `.env` (root)
+
+```env
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+SPOONACULAR_API_KEY=your_spoonacular_key
+```
+
+#### `client/.env`
+
+```env
+VITE_SPOONACULAR_API_KEY=your_spoonacular_key
+```
+
+### 🧪 Development
 
 ```bash
 npm run dev
 ```
 
-This will start both the client (on port 3000) and server (on port 5000) concurrently.
+> This starts both client and server locally.
 
-### Building for Production
+---
+
+## ⚙️ Deployment on Vercel
+
+> This app is fully configured for **Vercel**.
+
+### One-time Setup:
 
 ```bash
-npm run build
+npm install -g vercel
+vercel login
 ```
 
-This will build both the client and server for production deployment.
+### Deploy
 
-<<<<<<< HEAD
-## Deployment on Vercel
+```bash
+vercel --prod
+```
 
-1. Install Vercel CLI:
-   ```bash
-   npm install -g vercel
-   ```
+Add these environment variables in the **Vercel Dashboard**:
 
-2. Log in to your Vercel account:
-   ```bash
-   vercel login
-   ```
+* `MONGODB_URI`
+* `JWT_SECRET`
+* `SPOONACULAR_API_KEY`
 
-3. Set up environment variables in Vercel:
-   - MONGODB_URI: Your MongoDB connection string
-   - JWT_SECRET: Secret key for JWT authentication
-   - SPOONACULAR_API_KEY: Your Spoonacular API key
+---
 
-4. Deploy the application:
-   ```bash
-   vercel
-   ```
+## 📡 API Endpoints
 
-5. For production deployment:
-   ```bash
-   vercel --prod
-   ```
-=======
-### Deployment on Vercel
+### 🔐 Authentication
 
-This project is configured for deployment on Vercel. Simply connect your Vercel account to your repository, and set the environment variables in the Vercel dashboard.
->>>>>>> cfc4c53 (bug fixes, for deployement)
+* `POST /api/auth/register` – Register new user
+* `POST /api/auth/login` – Log in existing user
 
-## API Endpoints
+### 👤 User
 
-### Authentication
-- `POST /api/auth/register` - Register a new user
-- `POST /api/auth/login` - Login a user
+* `GET /api/user/profile` – Fetch logged-in user's profile
+* `PATCH /api/user/preferences` – Update preferences
 
-### User
-- `GET /api/user/profile` - Get the current user's profile
-- `PATCH /api/user/preferences` - Update user preferences
+### ❤️ Favorites
 
-### Favorites
-- `GET /api/favorites` - Get all favorite recipes for the current user
-- `POST /api/favorites` - Add a recipe to favorites
-- `DELETE /api/favorites/:recipeId` - Remove a recipe from favorites
+* `GET /api/favorites` – Fetch favorite recipes
+* `POST /api/favorites` – Add to favorites
+* `DELETE /api/favorites/:id` – Remove a recipe
 
-## License
+---
 
-<<<<<<< HEAD
-MIT
-=======
-MIT 
->>>>>>> cfc4c53 (bug fixes, for deployement)
+## 🤝 Contributing
+
+We welcome contributors! Please fork the repo, create a branch, and make a pull request.
+
+---
+
+## 📜 License
+
+Licensed under the **MIT License**.
+
+---
+
+## 📬 Contact
+
+Made with ❤️ by [Mukund Thakur](https://github.com/Mukund934) and team.
+For issues or contributions, please use the **[GitHub Issues](https://github.com/Mukund934/Recipe-Finder/issues)** tab.
+
+---
+
+Let me know if you want this in a downloadable `.md` file or you’d like badges (e.g., deploy status, last commit, stars) added at the top!
