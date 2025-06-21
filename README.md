@@ -54,11 +54,12 @@ Optimized experience for both desktop and mobile using **TailwindCSS** and **sha
 
 ### Short preview gif 1
 
-![Preview 1](.preview3-ezgif.gif)
+![App Preview](./preview3-ezgif.gif)
+
 
 ### Short preview gif 2
 
-![Preview 2](.preview4-ezgif.gif)
+![Preview 2](./preview4-ezgif.gif)
 
 > For Complete full length HD video previews, visit the [📂 Google Drive Folder](https://drive.google.com/drive/folders/1pUX8T4M67cGgYlID7e_nJuD8_kHLmaXz?usp=sharing)
 
